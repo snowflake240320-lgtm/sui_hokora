@@ -1,0 +1,14 @@
+{
+  "protocol": "SUI-HOKORA-V1",
+  "data_id": "generic-001",
+  "issuer": "Sonohara_Official",
+  "signature": "simulated_crypto_signature_xyz",
+  "payload": {
+    "message": "Welcome to SUI.",
+    "local_intelligence": {
+      "area": "Shin-Okachimachi",
+      "alert": "Information update: Hanamasa is closed. Use Matsukiyo.",
+      "recommendation": "Sake 'Shara' is best enjoyed at home."
+    }
+  }
+}
