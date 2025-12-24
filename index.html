@@ -484,6 +484,72 @@
             transform: translateY(-2px);
         }
 
+        /* --- LOGIC SECTION --- */
+        .logic-section {
+            padding: 80px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logic-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .logic-title {
+            font-size: 2rem;
+            color: var(--text-primary);
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+
+        .logic-subtitle {
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            font-size: 0.9rem;
+        }
+
+        .logic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            text-align: left;
+        }
+
+        .logic-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .logic-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-color);
+        }
+
+        .logic-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .logic-card h3 {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .logic-card p {
+            font-size: 0.9rem;
+            color: #aaa;
+            line-height: 1.8;
+        }
+
         footer {
             padding: 50px 0;
             text-align: center;
@@ -613,6 +679,33 @@
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+        <section class="logic-section">
+            <div class="logic-container">
+                <h2 class="logic-title">BEHIND THE LOGIC</h2>
+                <p class="logic-subtitle">SUIが機能する3つの心理学的根拠</p>
+
+                <div class="logic-grid">
+                    <div class="logic-card">
+                        <div class="logic-icon">🛡️</div>
+                        <h3>対立の回避</h3>
+                        <p>「片付けなさい」という親の命令は反発を生みます。SUIは「AIからの指令」という形をとることで、「親 vs 子」の構図を「親＆子 vs ミッション」という協力関係に変えます。</p>
+                    </div>
+
+                    <div class="logic-card">
+                        <div class="logic-icon">🎮</div>
+                        <h3>没入への誘導</h3>
+                        <p>子供は「現実の義務」を嫌いますが、「空想の冒険」は愛します。片付けを「ロケット発射準備」に、歯磨きを「防衛任務」に定義し直すことで、自発的な行動スイッチを入れます。</p>
+                    </div>
+
+                    <div class="logic-card">
+                        <div class="logic-icon">⚡</div>
+                        <h3>即時介入</h3>
+                        <p>必要なのはスマホだけ。親御さんの「演技力」も「準備」も不要です。疲弊した夕方の修羅場に、タップひとつで「遊び」という名のポーション（回復薬）を投下します。</p>
+                    </div>
+                </div>
             </div>
         </section>
 
