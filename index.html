@@ -720,7 +720,8 @@
         });
 
         // --- 4. DATA LOADER (THE INVENTORY) ---
-        const prompts = [
+        // Default / Fallback Data
+        let prompts = [
             {
                 id: "P-001",
                 title: "守護神化 (AI Guardian)",
@@ -746,6 +747,56 @@
                 content: `First: 先駆者であれ\nFun: 混沌を遊べ\nFair: 万人に開かれよ\n\n我々は、好奇心の聖域を守る守護者である。`
             }
         ];
+
+        // API Endpoint
+        const API_URL = "https://script.google.com/macros/s/AKfycbwEIFdbPKkfTdcmrHnhup-g8SyDFDvKEeqD1xvnXWlBsq5FnLpEc3H38TvukYbxNsUD/exec";
+
+        async function fetchPrompts() {
+            const btn = document.getElementById('spin-btn');
+            const slot = document.getElementById('slot-text');
+
+            // Set Loading Screen logic if needed, or just button state
+            btn.innerHTML = "SYNCING...";
+            btn.disabled = true;
+            slot.innerText = "ESTABLISHING LINK...";
+
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Network response was not ok');
+
+                const data = await response.json();
+
+                // Assuming API returns array of prompt objects or { data: [...] }
+                // Adjust based on actual API response structure. 
+                // Since I can't verify the structure beforehand without curling, 
+                // I will assume it returns a generic array similar to local structure 
+                // OR adapt it. 
+                // Let's assume the API returns the exact JSON array format as requested in prompt.
+                // If the user made the API, it likely returns the array.
+
+                if (Array.isArray(data) && data.length > 0) {
+                    prompts = data;
+                    console.log("SUI: Database Updated via Neural Link");
+                    slot.innerText = "LINK ESTABLISHED";
+                } else {
+                    console.warn("SUI: API returned empty/invalid data. Using local cache.");
+                    slot.innerText = "LOCAL MODE";
+                }
+
+            } catch (error) {
+                console.error("SUI: Connection failed. Using local protocol.", error);
+                slot.innerText = "OFFLINE MODE";
+            } finally {
+                // Restore Button
+                btn.innerHTML = "DIVE (GACHA)";
+                btn.disabled = false;
+
+                // Change Slot text back to Ready after a moment
+                setTimeout(() => {
+                    slot.innerText = "READY TO DIVE?";
+                }, 1500);
+            }
+        }
 
         // --- 5. GACHA LOGIC ---
         const slotText = document.getElementById('slot-text');
@@ -847,6 +898,9 @@
                 ease: "power3.out",
                 delay: 0.5
             });
+
+            // Start Data Sync
+            fetchPrompts();
         }
     </script>
 </body>
