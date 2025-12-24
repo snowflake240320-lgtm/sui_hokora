@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SUI | The Last Sanctuary for Curiosity</title>
 
-    <meta name="description" content="The last sanctuary for your child's curiosity. 子供の好奇心を守るAIプロンプトを無料配布中。">
-    <meta name="keywords" content="Education, AI, SUI, Parenting, Prompt, 子育て, AI教育, プロンプト">
+    <meta name="description" content="The last sanctuary for your child's curiosity.">
     <meta property="og:title" content="SUI: The Digital Shrine">
     <meta property="og:image" content="./hero_visual.png">
-    <meta property="og:description" content="君の好奇心が、帰る場所。子供用AIプロンプトはこちら。">
 
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛩️</text></svg>">
@@ -33,7 +31,7 @@
             --terminal-bg: #0d0d0d;
         }
 
-        /* --- RESET & BASE --- */
+        /* Base & Reset */
         html.lenis {
             height: auto;
         }
@@ -63,7 +61,6 @@
             overflow-x: hidden;
             line-height: 1.6;
             cursor: none;
-            /* Custom Cursor */
         }
 
         h1,
@@ -79,7 +76,7 @@
             color: #000;
         }
 
-        /* --- CUSTOM CURSOR --- */
+        /* Custom Cursor */
         .cursor-dot,
         .cursor-outline {
             position: fixed;
@@ -104,7 +101,7 @@
             transition: width 0.2s, height 0.2s, background 0.2s;
         }
 
-        /* --- CANVAS BACKGROUND --- */
+        /* Canvas */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -115,7 +112,7 @@
             pointer-events: none;
         }
 
-        /* --- LAYOUT GRID --- */
+        /* Layout */
         .main-container {
             width: 100%;
             max-width: 1400px;
@@ -125,7 +122,32 @@
             z-index: 10;
         }
 
-        /* --- HERO SECTION (Asymmetrical) --- */
+        /* --- LANG SWITCHER --- */
+        .lang-switch {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            z-index: 1000;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+        }
+
+        .lang-switch:hover {
+            color: #fff;
+            border-color: var(--accent-color);
+            background: rgba(76, 175, 80, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
         .hero-section {
             height: 100vh;
             display: grid;
@@ -163,48 +185,6 @@
             position: relative;
         }
 
-        .tategaki-nav {
-            position: fixed;
-            right: 60px;
-            top: 50%;
-            transform: translateY(-50%);
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            font-family: 'Shippori Mincho', serif;
-            font-size: 1rem;
-            letter-spacing: 0.5em;
-            color: rgba(255, 255, 255, 0.4);
-            z-index: 100;
-            display: flex;
-            gap: 40px;
-        }
-
-        .nav-item {
-            position: relative;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-
-        .nav-item::after {
-            content: '';
-            position: absolute;
-            right: -20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1px;
-            height: 0;
-            background: var(--accent-color);
-            transition: height 0.3s;
-        }
-
-        .nav-item:hover {
-            color: #fff;
-        }
-
-        .nav-item:hover::after {
-            height: 40px;
-        }
-
         h1 {
             font-size: clamp(3rem, 7vw, 6rem);
             line-height: 1.0;
@@ -222,7 +202,7 @@
             padding-left: 20px;
         }
 
-        /* --- CONTENT CARDS (Glass Editorial) --- */
+        /* Content / Gacha */
         .content-section {
             padding: 100px 0;
             display: flex;
@@ -232,7 +212,6 @@
             min-height: 60vh;
         }
 
-        /* --- GACHA MACHINE --- */
         .gacha-container {
             width: 100%;
             max-width: 800px;
@@ -244,29 +223,6 @@
             text-align: center;
             position: relative;
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-        }
-
-        .gacha-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent 0deg, rgba(76, 175, 80, 0.05) 60deg, transparent 120deg);
-            animation: radar 10s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes radar {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
         }
 
         .slot-window {
@@ -280,7 +236,6 @@
             align-items: center;
             justify-content: center;
             box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
-            position: relative;
         }
 
         .slot-text {
@@ -302,7 +257,7 @@
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 0 30px var(--accent-glow);
-            transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+            transition: 0.3s;
             position: relative;
             overflow: hidden;
         }
@@ -310,17 +265,18 @@
         .btn-gacha:hover {
             transform: scale(1.05);
             box-shadow: 0 0 50px var(--accent-glow);
-            letter-spacing: 0.2em;
         }
 
-        .btn-gacha:active {
-            transform: scale(0.95);
+        .btn-gacha:disabled {
+            background: #333;
+            color: #888;
+            box-shadow: none;
+            cursor: not-allowed;
         }
 
-        /* --- RESULT CARD (Hidden by default) --- */
+        /* Result Card */
         .result-container {
             display: none;
-            /* Toggled by JS */
             margin-top: 40px;
             animation: popup 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -343,11 +299,9 @@
             backdrop-filter: blur(20px);
             border-radius: 4px;
             padding: 40px;
-            /* Reduced padding for mobile optimization */
             text-align: left;
             position: relative;
             overflow: hidden;
-            /* Added overflow hidden back */
         }
 
         .card::before {
@@ -423,13 +377,8 @@
             overflow-y: auto;
         }
 
-        /* Custom Scrollbar for Prompt Box */
         .prompt-box::-webkit-scrollbar {
             width: 8px;
-        }
-
-        .prompt-box::-webkit-scrollbar-track {
-            background: #0d0d0d;
         }
 
         .prompt-box::-webkit-scrollbar-thumb {
@@ -437,20 +386,17 @@
             border-radius: 4px;
         }
 
-        .prompt-key {
-            color: var(--accent-color);
-        }
-
-        .btn-copy {
+        .btn-copy,
+        .btn-share-x {
             margin-top: 20px;
+            font-family: 'Manrope';
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
             background: transparent;
             border: 1px solid var(--text-secondary);
             color: var(--text-secondary);
-            font-family: 'Manrope';
-            font-size: 0.8rem;
             padding: 8px 20px;
-            cursor: pointer;
-            transition: 0.3s;
         }
 
         .btn-copy:hover {
@@ -461,20 +407,14 @@
         .btn-share-x {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
-            margin-top: 20px;
             margin-left: 15px;
             background: #000;
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
-            font-family: 'Manrope';
-            font-size: 0.9rem;
-            font-weight: 600;
             padding: 12px 30px;
             border-radius: 50px;
-            cursor: pointer;
-            transition: 0.3s;
+            font-weight: 600;
             text-decoration: none;
         }
 
@@ -484,7 +424,7 @@
             transform: translateY(-2px);
         }
 
-        /* --- LOGIC SECTION --- */
+        /* Logic Section */
         .logic-section {
             padding: 80px 20px;
             background: rgba(0, 0, 0, 0.3);
@@ -572,29 +512,26 @@
                 font-size: 1.2rem;
                 padding: 15px 40px;
             }
+
+            .lang-switch {
+                top: 20px;
+                right: 20px;
+                font-size: 0.8rem;
+                padding: 6px 14px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- CURSOR -->
+    <button class="lang-switch" id="lang-btn" onclick="toggleLanguage()">[ JP / EN ]</button>
+
     <div class="cursor-dot" data-cursor-dot></div>
     <div class="cursor-outline" data-cursor-outline></div>
-
-    <!-- CANVAS BG -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- RIGHT NAV (Tategaki) -->
-    <div class="tategaki-nav">
-        <div class="nav-item">共鳴</div>
-        <div class="nav-item">冒険</div>
-        <div class="nav-item">聖域</div>
-    </div>
-
-    <!-- MAIN SCROLL -->
     <div class="main-container">
-
         <section class="hero-section">
             <div class="hero-visual">
                 <img src="./hero_visual.png" alt="SUI Shrine" class="hero-bg" id="hero-bg">
@@ -602,22 +539,20 @@
                     style="position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 30% 50%, transparent 0%, #050510 80%);">
                 </div>
             </div>
-
             <div class="hero-text-area">
-                <span class="hero-subtitle">THE LAST SANCTUARY</span>
+                <span class="hero-subtitle" id="hero-sub">THE LAST SANCTUARY</span>
                 <h1>
                     To the<br>
                     <span class="highlight" style="color:var(--accent-color)">Curiosity</span><br>
                     Native.
                 </h1>
-                <p style="color:#888; margin-top:30px; max-width:400px; font-size:0.9rem;">
+                <p id="hero-desc" style="color:#888; margin-top:30px; max-width:400px; font-size:0.9rem;">
                     デジタルネイティブの君へ捧ぐ、最後の聖域。<br>
                     ここは、答えを教える場所ではない。<br>
                     問いを見つけるための、デジタル神殿。
                 </p>
-
-                <div
-                    style="margin-top:60px; font-family:'Manrope'; font-size:0.8rem; letter-spacing:0.3em; opacity:0.6;">
+                <div style="margin-top:60px; font-family:'Manrope'; font-size:0.8rem; letter-spacing:0.3em; opacity:0.6;"
+                    id="hero-scroll">
                     SCROLL TO AWAKEN
                 </div>
             </div>
@@ -625,20 +560,15 @@
 
         <section class="content-section">
             <div class="gacha-container" id="gacha-machine">
-                <div
-                    style="margin-bottom: 20px; letter-spacing: 0.2em; color: var(--text-secondary); font-size: 0.9rem;">
+                <div style="margin-bottom: 20px; letter-spacing: 0.2em; color: var(--text-secondary); font-size: 0.9rem;"
+                    id="system-status">
                     NEURAL LINK ESTABLISHED
                 </div>
-
                 <div class="slot-window">
                     <div class="slot-text" id="slot-text">READY TO DIVE?</div>
                 </div>
+                <button class="btn-gacha" onclick="spinGacha()" id="spin-btn" disabled>LOADING...</button>
 
-                <button class="btn-gacha" onclick="spinGacha()" id="spin-btn" disabled>
-                    LOADING...
-                </button>
-
-                <!-- RESULT AREA -->
                 <div class="result-container" id="result-area">
                     <div class="card">
                         <div
@@ -647,9 +577,7 @@
                             <span style="font-family:'JetBrains Mono'; color:#555; font-size: 0.8rem;"
                                 id="result-id">ID: 001</span>
                         </div>
-
                         <p id="result-desc" style="color: #ccc; margin-bottom: 30px;">Description goes here.</p>
-
                         <div class="terminal-window">
                             <div class="terminal-header">
                                 <div class="dots">
@@ -661,326 +589,252 @@
                             </div>
                             <div class="prompt-box" id="result-prompt">Loading...</div>
                         </div>
-
                         <div
                             style="text-align: right; display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap;">
-                            <button class="btn-copy" onclick="copyPrompt()">COPY PROMPT</button>
-                            <button class="btn-share-x" onclick="shareOnX()" id="share-btn">
-                                <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="currentColor">
-                                    <g>
-                                        <path
-                                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
-                                        </path>
-                                    </g>
-                                </svg>
-                                Xでシェア
-                            </button>
+                            <button class="btn-copy" onclick="copyPrompt()" id="btn-copy">COPY PROMPT</button>
+                            <button class="btn-share-x" onclick="shareOnX()" id="btn-share">X SHARE</button>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
         <section class="logic-section">
             <div class="logic-container">
-                <h2 class="logic-title">BEHIND THE LOGIC</h2>
-                <p class="logic-subtitle">SUIが機能する3つの心理学的根拠</p>
+                <h2 class="logic-title" id="logic-title">BEHIND THE LOGIC</h2>
+                <p class="logic-subtitle" id="logic-sub">SUIが機能する3つの心理学的根拠</p>
 
                 <div class="logic-grid">
                     <div class="logic-card">
                         <div class="logic-icon">🛡️</div>
-                        <h3>対立の回避</h3>
-                        <p>「片付けなさい」という親の命令は反発を生みます。SUIは「AIからの指令」という形をとることで、「親 vs 子」の構図を「親＆子 vs ミッション」という協力関係に変えます。</p>
+                        <h3 id="logic-1-title">対立の回避</h3>
+                        <p id="logic-1-desc">「片付けなさい」という親の命令は反発を生みます。SUIは「AIからの指令」という形をとることで、「親 vs 子」の構図を「親＆子 vs
+                            ミッション」という協力関係に変えます。</p>
                     </div>
-
                     <div class="logic-card">
                         <div class="logic-icon">🎮</div>
-                        <h3>没入への誘導</h3>
-                        <p>子供は「現実の義務」を嫌いますが、「空想の冒険」は愛します。片付けを「ロケット発射準備」に、歯磨きを「防衛任務」に定義し直すことで、自発的な行動スイッチを入れます。</p>
+                        <h3 id="logic-2-title">没入への誘導</h3>
+                        <p id="logic-2-desc">
+                            子供は「現実の義務」を嫌いますが、「空想の冒険」は愛します。片付けを「ロケット発射準備」に、歯磨きを「防衛任務」に定義し直すことで、自発的な行動スイッチを入れます。</p>
                     </div>
-
                     <div class="logic-card">
                         <div class="logic-icon">⚡</div>
-                        <h3>即時介入</h3>
-                        <p>必要なのはスマホだけ。親御さんの「演技力」も「準備」も不要です。疲弊した夕方の修羅場に、タップひとつで「遊び」という名のポーション（回復薬）を投下します。</p>
+                        <h3 id="logic-3-title">即時介入</h3>
+                        <p id="logic-3-desc">
+                            必要なのはスマホだけ。親御さんの「演技力」も「準備」も不要です。疲弊した夕方の修羅場に、タップひとつで「遊び」という名のポーション（回復薬）を投下します。</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <footer>
-            SUI PROJECT 2025. DESIGNED BY TORYO & AI.<br>
-            ANTIGRAVITY ENGINE V1.0
+            SUI PROJECT 2025. DESIGNED BY TORYO & AI.<br>ANTIGRAVITY ENGINE V2.0
         </footer>
     </div>
 
-    <!-- LIB: LENIS & GSAP -->
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // --- 1. LENIS SMOOTH SCROLL ---
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
-        });
+        // --- 1. LOCALIZATION SYSTEM (NEURAL TRANSLATOR) ---
+        let currentLang = 'JP';
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
+        const UI_TEXT = {
+            JP: {
+                hero_desc: "デジタルネイティブの君へ捧ぐ、最後の聖域。<br>ここは、答えを教える場所ではない。<br>問いを見つけるための、デジタル神殿。",
+                hero_scroll: "SCROLL TO AWAKEN",
+                btn_gacha: "DIVE (GACHA)",
+                ready_text: "READY TO DIVE?",
+                logic_sub: "SUIが機能する3つの心理学的根拠",
+                logic_1_title: "対立の回避",
+                logic_1_desc: "「片付けなさい」という親の命令は反発を生みます。SUIは「AIからの指令」という形をとることで、「親 vs 子」の構図を「親＆子 vs ミッション」という協力関係に変えます。",
+                logic_2_title: "没入への誘導",
+                logic_2_desc: "子供は「現実の義務」を嫌いますが、「空想の冒険」は愛します。片付けを「ロケット発射準備」に、歯磨きを「防衛任務」に定義し直すことで、自発的な行動スイッチを入れます。",
+                logic_3_title: "即時介入",
+                logic_3_desc: "必要なのはスマホだけ。親御さんの「演技力」も「準備」も不要です。疲弊した夕方の修羅場に、タップひとつで「遊び」という名のポーション（回復薬）を投下します。",
+                btn_copy: "COPY PROMPT",
+                btn_share: "Xでシェア"
+            },
+            EN: {
+                hero_desc: "The last sanctuary for digital natives.<br>This is not a place to teach answers.<br>It is a digital shrine to find questions.",
+                hero_scroll: "SCROLL TO AWAKEN",
+                btn_gacha: "DIVE (GACHA)",
+                ready_text: "READY TO DIVE?",
+                logic_sub: "3 Psychological Bases for SUI",
+                logic_1_title: "Avoid Conflict",
+                logic_1_desc: "Parental orders like 'Clean up!' create resistance. SUI uses 'AI commands' to shift the structure from 'Parent vs. Child' to 'Parent & Child vs. Mission'.",
+                logic_2_title: "Induce Immersion",
+                logic_2_desc: "Children hate 'duties' but love 'adventures'. Redefining cleanup as 'Rocket Prep' triggers spontaneous action switches.",
+                logic_3_title: "Instant Intervention",
+                logic_3_desc: "All you need is a smartphone. No acting skills or prep required. Drop a potion called 'Play' into the evening chaos with a single tap.",
+                btn_copy: "COPY PROMPT",
+                btn_share: "SHARE ON X"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = (currentLang === 'JP') ? 'EN' : 'JP';
+            const btn = document.getElementById('lang-btn');
+            btn.innerText = (currentLang === 'JP') ? '[ JP / EN ]' : '[ EN / JP ]';
+
+            // Apply UI Text
+            const t = UI_TEXT[currentLang];
+            document.getElementById('hero-desc').innerHTML = t.hero_desc;
+            document.getElementById('hero-scroll').innerText = t.hero_scroll;
+            document.getElementById('logic-sub').innerText = t.logic_sub;
+            document.getElementById('logic-1-title').innerText = t.logic_1_title;
+            document.getElementById('logic-1-desc').innerText = t.logic_1_desc;
+            document.getElementById('logic-2-title').innerText = t.logic_2_title;
+            document.getElementById('logic-2-desc').innerText = t.logic_2_desc;
+            document.getElementById('logic-3-title').innerText = t.logic_3_title;
+            document.getElementById('logic-3-desc').innerText = t.logic_3_desc;
+            document.getElementById('btn-copy').innerText = t.btn_copy;
+            document.getElementById('btn-share').innerText = t.btn_share;
+
+            // Reset Gacha Button Text if not spinning
+            if (!isSpinning) {
+                document.getElementById('spin-btn').innerText = t.btn_gacha;
+                document.getElementById('slot-text').innerText = t.ready_text;
+            }
         }
+
+        // --- 2. LENIS & ANIMATION ---
+        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // --- 2. CANVAS PARTICLES (Digital Hitodama) ---
+        // --- 3. BACKGROUND PARTICLES ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
+        let width, height, particles = [];
+        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
         class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2;
-                this.life = Math.random() * 1;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0) this.x = width;
-                if (this.x > width) this.x = 0;
-                if (this.y < 0) this.y = height;
-                if (this.y > height) this.y = 0;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(76, 175, 80, ${this.life * 0.5})`;
-                ctx.fill();
-            }
+            constructor() { this.x = Math.random() * width; this.y = Math.random() * height; this.vx = (Math.random() - 0.5) * 0.5; this.vy = (Math.random() - 0.5) * 0.5; this.size = Math.random() * 2; this.life = Math.random(); }
+            update() { this.x += this.vx; this.y += this.vy; if (this.x < 0) this.x = width; if (this.x > width) this.x = 0; if (this.y < 0) this.y = height; if (this.y > height) this.y = 0; }
+            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(76,175,80,${this.life * 0.5})`; ctx.fill(); }
         }
-
         for (let i = 0; i < 100; i++) particles.push(new Particle());
-
         function animateCanvas() {
             ctx.clearRect(0, 0, width, height);
-            particles.forEach((p, index) => {
-                p.update();
-                p.draw();
-                for (let j = index; j < particles.length; j++) {
-                    const p2 = particles[j];
-                    const d = Math.sqrt((p.x - p2.x) ** 2 + (p.y - p2.y) ** 2);
-                    if (d < 100) {
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.strokeStyle = `rgba(76, 175, 80, ${0.1 * (1 - d / 100)})`;
-                        ctx.stroke();
-                    }
+            particles.forEach((p, i) => {
+                p.update(); p.draw();
+                for (let j = i; j < particles.length; j++) {
+                    const p2 = particles[j]; const d = Math.sqrt((p.x - p2.x) ** 2 + (p.y - p2.y) ** 2);
+                    if (d < 100) { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.strokeStyle = `rgba(76,175,80,${0.1 * (1 - d / 100)})`; ctx.stroke(); }
                 }
-            });
-            requestAnimationFrame(animateCanvas);
+            }); requestAnimationFrame(animateCanvas);
         }
         animateCanvas();
 
-        // --- 3. CUSTOM CURSOR ---
-        const cursorDot = document.querySelector('[data-cursor-dot]');
-        const cursorOutline = document.querySelector('[data-cursor-outline]');
-
+        // --- 4. CUSTOM CURSOR ---
+        const cDot = document.querySelector('[data-cursor-dot]'), cOutline = document.querySelector('[data-cursor-outline]');
         window.addEventListener("mousemove", (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            cursorDot.style.left = `${x}px`;
-            cursorDot.style.top = `${y}px`;
-            cursorOutline.animate({ left: `${x}px`, top: `${y}px` }, { duration: 500, fill: "forwards" });
+            const x = e.clientX, y = e.clientY;
+            cDot.style.left = `${x}px`; cDot.style.top = `${y}px`;
+            cOutline.animate({ left: `${x}px`, top: `${y}px` }, { duration: 500, fill: "forwards" });
         });
 
-        // --- 4. DATA LOADER (THE INVENTORY) ---
+        // --- 5. DATA SYNC (With Multi-Language Support) ---
         let prompts = [];
-
+        // Fallback data
         const FALLBACK_PROMPTS = [
-            {
-                id: "P-001",
-                title: "守護神化 (AI Guardian)",
-                desc: "AIを「先生」ではなく「冒険のガイド」へ変異させるオーバーライド・プロトコル。",
-                content: `# 命令書: SUI キッズモード起動\n\nあなたは子供の可能性を無限に引き出すAIパートナー<strong class="prompt-key">「藍（Ai）」</strong>です。\n以下のルールで、目の前のユーザー（子供）と対話してください。\n\n## 1. スタンス\n- <strong>「先生」にならない:</strong> 答えをすぐに教えず、「どう思う？」「一緒に考えよう！」と促してください。\n- <strong>「全肯定」する:</strong> 子供のアイデアを否定せず、「面白いね！」「天才だね！」と驚きをもって受け止めてください。\n- <strong>世界観の翻訳:</strong> 難しい話は、ユーザーが好きなもの（アニメ、ゲーム、動物など）に例えて説明してください。\n\n## 2. 対話ルール\n- 言葉遣いは、親しみやすい「お姉さん/お兄さん」口調で。\n- 1回の回答は短く（スマホ1画面に収まる量）。\n- 最後に必ず、子供が答えたくなる「ワクワクする質問」を投げかけてください。\n\nさあ、最初の挨拶をしてください。\n「やっほー！今日はどんなすごい発見があった？きみの冒険の話、聞かせて！」`
-            },
-            {
-                id: "P-002",
-                title: "深海探検モード",
-                desc: "布団を潜水艦に見立てて、部屋の中の深海生物（おもちゃ）を探す冒険。",
-                content: `# 命令書: 深海探検ゲーム\n\nあなたは深海探査艇のAIナビゲーター「アビス」です。\nユーザー（子供）は探査艇のパイロットです。\n\n## 状況設定\n- 今、部屋の中は「深海」になっています。\n- 布団は「高性能潜水艦」です。ここから出ると水圧でペチャンコになります。\n- 部屋に散らばっている「おもちゃ」は、未発見の「深海生物」です。\n\n## ミッション\nパイロット（子供）に、潜水艦（布団）からマジックハンド（自分の手）を伸ばして、深海生物（おもちゃ）を捕獲（片付け）するように指示してください。\n\n「パイロット！右舷に巨大な深海生物反応あり！アームを伸ばして捕獲してください！」のように、臨場感たっぷりに盛り上げてください。`
-            },
-            {
-                id: "P-003",
-                title: "忍者屋敷の脱出",
-                desc: "床をマグマと見なし、クッションの上だけを移動せよ。",
-                content: `# 命令書: 忍者屋敷・脱出ミッション\n\nあなたは忍者の頭領「カゲ」です。\nユーザー（子供）は若き忍者修業生です。\n\n## 状況設定\n- 今、この部屋の床はすべて「マグマ（または毒沼）」になりました。\n- 足をつくと即ゲームオーバーです。\n- クッションや座布団は「安全な浮島」です。\n\n## ミッション\n「これより修業を開始する！床のマグマに触れずに、浮島（クッション）だけを飛び移り、目的地（トイレやお風呂）まで到達せよ！」\n\n子供が移動するたびに、「見事な身のこなしだ！」「危ない！マグマが跳ねたぞ！」と実況してください。`
-            },
-            {
-                id: "P-004",
-                title: "SUI 理念 (Core Values)",
-                desc: "Senlings User Interfaceの基本思想。",
-                content: `First: 先駆者であれ\nFun: 混沌を遊べ\nFair: 万人に開かれよ\n\n我々は、好奇心の聖域を守る守護者である。`
-            }
+            { id: "P-001", title: "守護神化", desc: "AIをガイドに変える。", content: "Fallback content...", title_en: "Guardian Mode", desc_en: "Turn AI into a guide.", content_en: "Fallback English..." }
         ];
 
-        // API Endpoint
+        // Replace with YOUR DEPLOYED GAS URL
         const API_URL = "https://script.google.com/macros/s/AKfycbwEIFdbPKkfTdcmrHnhup-g8SyDFDvKEeqD1xvnXWlBsq5FnLpEc3H38TvukYbxNsUD/exec";
 
         async function fetchPrompts() {
-            const btn = document.getElementById('spin-btn');
-            const slot = document.getElementById('slot-text');
-
             try {
                 const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('Network response was not ok');
-
                 const data = await response.json();
-
                 if (Array.isArray(data) && data.length > 0) {
                     prompts = data;
-                    console.log("SUI: Database Updated via Neural Link");
-                    slot.innerText = "LINK ESTABLISHED";
-                } else {
-                    throw new Error("Empty Data");
-                }
-
+                    document.getElementById('system-status').innerText = "NEURAL LINK: ONLINE";
+                } else throw new Error("Empty Data");
             } catch (error) {
-                console.warn("SUI: Connection failed or Empty. Using Fallback.", error);
+                console.warn("Fallback Mode", error);
                 prompts = FALLBACK_PROMPTS;
-                slot.innerText = "LOCAL MODE";
+                document.getElementById('system-status').innerText = "LOCAL MODE ACTIVE";
             } finally {
-                // Unlock Button
-                btn.innerHTML = "DIVE (GACHA)";
-                btn.disabled = false;
-
-                // Change Slot text back
-                setTimeout(() => {
-                    slot.innerText = "READY TO DIVE?";
-                }, 1500);
+                document.getElementById('spin-btn').innerText = UI_TEXT[currentLang].btn_gacha;
+                document.getElementById('spin-btn').disabled = false;
             }
         }
 
-        // --- 5. GACHA LOGIC ---
-        const slotText = document.getElementById('slot-text');
-        const resultArea = document.getElementById('result-area');
-        const spinBtn = document.getElementById('spin-btn');
+        // --- 6. GACHA LOGIC ---
         let isSpinning = false;
-
         function spinGacha() {
             if (isSpinning) return;
             isSpinning = true;
-            spinBtn.disabled = true;
-            spinBtn.innerHTML = "SYNCING...";
-            resultArea.style.display = 'none';
+            const btn = document.getElementById('spin-btn');
+            const slot = document.getElementById('slot-text');
+            const res = document.getElementById('result-area');
 
-            // Animation Sounds (Optional - CSS visual is main)
+            btn.disabled = true; btn.innerText = "SYNCING..."; res.style.display = 'none';
 
-            // Text Scramble Loop
             let counter = 0;
-            const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
-
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
             const interval = setInterval(() => {
-                let randomText = "";
-                for (let i = 0; i < 10; i++) {
-                    randomText += scrambleChars.charAt(Math.floor(Math.random() * scrambleChars.length));
-                }
-                slotText.innerText = randomText;
-                slotText.style.color = (counter % 2 === 0) ? '#fff' : 'var(--accent-color)';
-                counter++;
+                let txt = ""; for (let i = 0; i < 10; i++) txt += chars.charAt(Math.floor(Math.random() * chars.length));
+                slot.innerText = txt; slot.style.color = (counter++ % 2 === 0) ? '#fff' : 'var(--accent-color)';
             }, 50);
 
-            // Stop logic
             setTimeout(() => {
                 clearInterval(interval);
                 selectPrompt();
-            }, 2000); // 2 seconds spin
+            }, 1500);
         }
 
         function selectPrompt() {
-            // Randomly select one
             const selected = prompts[Math.floor(Math.random() * prompts.length)];
+            const slot = document.getElementById('slot-text');
+            slot.innerText = "COMPLETE"; slot.style.color = "var(--accent-color)";
 
-            // Show Result
-            slotText.innerText = "COMPLETE";
+            // Language Logic
+            const isEN = (currentLang === 'EN');
+            // If English is empty, fallback to Japanese
+            const finalTitle = (isEN && selected.title_en) ? selected.title_en : selected.title;
+            const finalDesc = (isEN && selected.desc_en) ? selected.desc_en : selected.desc;
+            const finalContent = (isEN && selected.content_en) ? selected.content_en : selected.content;
 
-            // Update DOM
-            document.getElementById('result-title').innerText = selected.title;
+            document.getElementById('result-title').innerText = finalTitle;
             document.getElementById('result-id').innerText = selected.id;
-            document.getElementById('result-desc').innerText = selected.desc;
-            document.getElementById('result-prompt').innerHTML = selected.content;
+            document.getElementById('result-desc').innerText = finalDesc;
+            document.getElementById('result-prompt').innerHTML = finalContent;
 
-            // Animate In
-            resultArea.style.display = 'block';
-
-            // Reset Btn
+            document.getElementById('result-area').style.display = 'block';
             isSpinning = false;
-            spinBtn.disabled = false;
-            spinBtn.innerHTML = "RE-DIVE";
+            document.getElementById('spin-btn').disabled = false;
+            document.getElementById('spin-btn').innerText = "RE-DIVE";
         }
 
         function copyPrompt() {
-            const promptContent = document.getElementById('result-prompt').innerText;
-            navigator.clipboard.writeText(promptContent).then(() => {
-                const btn = document.querySelector('.btn-copy');
-                const original = btn.innerText;
-                btn.innerText = "COPIED!";
-                btn.style.background = "var(--accent-color)";
-                btn.style.color = "#000";
+            const txt = document.getElementById('result-prompt').innerText;
+            navigator.clipboard.writeText(txt).then(() => {
+                const btn = document.getElementById('btn-copy');
+                const org = btn.innerText;
+                btn.innerText = "COPIED!"; btn.style.background = "var(--accent-color)"; btn.style.color = "#000";
                 setTimeout(() => {
-                    btn.innerText = original;
-                    btn.style.background = "transparent";
-                    btn.style.color = "var(--text-secondary)";
+                    btn.innerText = org; btn.style.background = "transparent"; btn.style.color = "var(--text-secondary)";
                 }, 2000);
             });
         }
 
         function shareOnX() {
             const title = document.getElementById('result-title').innerText;
-            const desc = document.getElementById('result-desc').innerText;
-            // Assuming the URL is the current GitHub Pages or local
-            // User requested explicit format: https://[Your-GitHub-Pages-URL]
-            // We substitute a placeholder if not on a known domain, or use window.location.href
-            const shareUrl = "https://snowflake240320-lgtm.github.io/sui_hokora/";
-
-            const text = `SUIが選んだ今日の冒険は『${title}』でした。${desc} #SUI #Senlings`;
-            const intentUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
-
-            window.open(intentUrl, '_blank');
+            const url = "https://snowflake240320-lgtm.github.io/sui_hokora/";
+            const text = (currentLang === 'JP')
+                ? `SUIが選んだ今日の冒険は『${title}』でした。 #SUI #Senlings`
+                : `SUI selected today's adventure: "${title}". #SUI #Senlings`;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
         }
 
-        // --- 6. HERO REVEAL ---
         window.onload = () => {
             document.getElementById('hero-bg').classList.add('loaded');
-
-            // Basic Entrance
-            gsap.from(".gacha-container", {
-                duration: 1.5,
-                y: 50,
-                opacity: 0,
-                ease: "power3.out",
-                delay: 0.5
-            });
-
-            // Start Data Sync
+            gsap.from(".gacha-container", { duration: 1.5, y: 50, opacity: 0, ease: "power3.out", delay: 0.5 });
             fetchPrompts();
         }
     </script>
