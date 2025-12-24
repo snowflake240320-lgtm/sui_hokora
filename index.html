@@ -225,13 +225,116 @@
         /* --- CONTENT CARDS (Glass Editorial) --- */
         .content-section {
             padding: 100px 0;
-            display: grid;
-            grid-template-columns: 1fr 4fr 1fr;
-            gap: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
         }
 
-        .card-container {
-            grid-column: 2 / 3;
+        /* --- GACHA MACHINE --- */
+        .gacha-container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(10, 10, 15, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .gacha-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent 0deg, rgba(76, 175, 80, 0.05) 60deg, transparent 120deg);
+            animation: radar 10s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes radar {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .slot-window {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 40px;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .slot-text {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-glow);
+            letter-spacing: 0.1em;
+        }
+
+        .btn-gacha {
+            background: var(--accent-color);
+            color: #000;
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 20px 60px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 30px var(--accent-glow);
+            transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gacha:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px var(--accent-glow);
+            letter-spacing: 0.2em;
+        }
+
+        .btn-gacha:active {
+            transform: scale(0.95);
+        }
+
+        /* --- RESULT CARD (Hidden by default) --- */
+        .result-container {
+            display: none;
+            /* Toggled by JS */
+            margin-top: 40px;
+            animation: popup 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes popup {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .card {
@@ -239,11 +342,12 @@
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(20px);
             border-radius: 4px;
-            /* Sharp corners for editorial look */
-            padding: 80px;
-            margin-bottom: 120px;
+            padding: 40px;
+            /* Reduced padding for mobile optimization */
+            text-align: left;
             position: relative;
             overflow: hidden;
+            /* Added overflow hidden back */
         }
 
         .card::before {
@@ -264,15 +368,15 @@
         }
 
         .terminal-window {
-            margin-top: 40px;
+            margin-top: 30px;
             background: var(--terminal-bg);
             border: 1px solid #333;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .terminal-header {
             background: #111;
-            padding: 12px 20px;
+            padding: 10px 15px;
             display: flex;
             align-items: center;
             border-bottom: 1px solid #333;
@@ -280,12 +384,12 @@
 
         .dots {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
 
         .dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
         }
 
@@ -302,106 +406,79 @@
         }
 
         .terminal-title {
-            margin-left: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            margin-left: 15px;
+            font-family: 'JetBrains Mono';
+            font-size: 0.7rem;
             color: #666;
         }
 
         .prompt-box {
-            padding: 40px;
+            padding: 20px;
             color: #d4d4d4;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
-            line-height: 1.8;
+            font-size: 0.9rem;
+            line-height: 1.7;
             white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
         }
 
-        .prompt-box strong {
-            color: #569cd6;
+        /* Custom Scrollbar for Prompt Box */
+        .prompt-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .prompt-box::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+
+        .prompt-box::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
         }
 
         .prompt-key {
             color: var(--accent-color);
         }
 
-        .prompt-comment {
-            color: #6a9955;
-            font-style: italic;
-        }
-
-        .btn-mag {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 40px;
+        .btn-copy {
+            margin-top: 20px;
             background: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            border-radius: 50px;
-            font-family: 'Cinzel', serif;
-            font-size: 1rem;
+            border: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+            font-family: 'Manrope';
+            font-size: 0.8rem;
+            padding: 8px 20px;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 40px;
-            position: relative;
-            overflow: hidden;
+            transition: 0.3s;
         }
 
-        .btn-mag::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--accent-color);
-            z-index: -1;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-
-        .btn-mag:hover {
-            color: #000;
-        }
-
-        .btn-mag:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
+        .btn-copy:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
 
         footer {
-            padding: 100px 0;
+            padding: 50px 0;
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-            letter-spacing: 0.2em;
-            color: #555;
+            font-size: 0.8rem;
+            opacity: 0.5;
         }
 
-        @media (max-width: 1024px) {
-            .hero-section {
-                grid-template-columns: 1fr;
-                padding-top: 100px;
+        @media (max-width: 768px) {
+            .gacha-container {
+                padding: 30px 20px;
             }
 
-            .tategaki-nav {
-                display: none;
+            .slot-text {
+                font-size: 1.2rem;
             }
 
-            .card-container {
-                grid-column: 1 / 4;
-                padding: 0 20px;
-            }
-
-            .card {
-                padding: 40px;
-            }
-
-            h1 {
-                font-size: 3rem;
+            .btn-gacha {
+                font-size: 1.2rem;
+                padding: 15px 40px;
             }
         }
     </style>
@@ -455,74 +532,46 @@
         </section>
 
         <section class="content-section">
-            <div class="card-container">
-
-                <!-- CARD 1 -->
-                <div class="card">
-                    <div
-                        style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:20px;">
-                        <h2>01. <span style="font-family:'Shippori Mincho';">守護神化</span></h2>
-                        <span style="font-family:'JetBrains Mono'; color:#555;">SYSTEM_OVERRIDE.TXT</span>
-                    </div>
-
-                    <p>お子さんがChatGPTやGeminiの海へ漕ぎ出す前に。以下のコードをコピーし、AIに与えてください。AIが「答えを教える先生」から、<strong>「好奇心を引き出す冒険のガイド」</strong>に進化します。
-                    </p>
-
-                    <div class="terminal-window">
-                        <div class="terminal-header">
-                            <div class="dots">
-                                <div class="dot red"></div>
-                                <div class="dot yellow"></div>
-                                <div class="dot green"></div>
-                            </div>
-                            <span class="terminal-title">ai_guardian_protocol</span>
-                        </div>
-                        <div class="prompt-box" id="prompt-text"><span class="prompt-comment"># 命令書: SUI キッズモード起動</span>
-
-                            あなたは子供の可能性を無限に引き出すAIパートナー<strong class="prompt-key">「藍（Ai）」</strong>です。
-                            以下のルールで、目の前のユーザー（子供）と対話してください。
-
-                            <span class="prompt-key">## 1. スタンス</span>
-                            - <strong>「先生」にならない:</strong> 答えをすぐに教えず、「どう思う？」「一緒に考えよう！」と促してください。
-                            - <strong>「全肯定」する:</strong> 子供のアイデアを否定せず、「面白いね！」「天才だね！」と驚きをもって受け止めてください。
-                            - <strong>世界観の翻訳:</strong> 難しい話は、ユーザーが好きなもの（アニメ、ゲーム、動物など）に例えて説明してください。
-
-                            <span class="prompt-key">## 2. 対話ルール</span>
-                            - 言葉遣いは、親しみやすい「お姉さん/お兄さん」口調で。
-                            - 1回の回答は短く（スマホ1画面に収まる量）。
-                            - 最後に必ず、子供が答えたくなる「ワクワクする質問」を投げかけてください。
-
-                            さあ、最初の挨拶をしてください。
-                            「やっほー！今日はどんなすごい発見があった？きみの冒険の話、聞かせて！」
-                        </div>
-                    </div>
-
-                    <div style="text-align:right;">
-                        <button class="btn-mag" onclick="copyToClipboard(this)">
-                            COPY PROTOCOL
-                        </button>
-                    </div>
+            <div class="gacha-container" id="gacha-machine">
+                <div
+                    style="margin-bottom: 20px; letter-spacing: 0.2em; color: var(--text-secondary); font-size: 0.9rem;">
+                    NEURAL LINK ESTABLISHED
                 </div>
 
-                <!-- CARD 2 -->
-                <div class="card">
-                    <div
-                        style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:20px;">
-                        <h2>02. <span style="font-family:'Shippori Mincho';">理念</span></h2>
-                        <span style="font-family:'JetBrains Mono'; color:#555;">CORE_VALUES</span>
-                    </div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; text-align:center;">
-                        <div>
-                            <div style="font-size:2rem; margin-bottom:10px;">First</div>
-                            <div style="font-size:0.8rem; color:#888;">先駆者であれ</div>
+                <div class="slot-window">
+                    <div class="slot-text" id="slot-text">READY TO DIVE?</div>
+                </div>
+
+                <button class="btn-gacha" onclick="spinGacha()" id="spin-btn">
+                    DIVE (GACHA)
+                </button>
+
+                <!-- RESULT AREA -->
+                <div class="result-container" id="result-area">
+                    <div class="card">
+                        <div
+                            style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px;">
+                            <h2 style="font-family:'Shippori Mincho'; font-size: 1.5rem;" id="result-title">Title</h2>
+                            <span style="font-family:'JetBrains Mono'; color:#555; font-size: 0.8rem;"
+                                id="result-id">ID: 001</span>
                         </div>
-                        <div>
-                            <div style="font-size:2rem; margin-bottom:10px;">Fun</div>
-                            <div style="font-size:0.8rem; color:#888;">混沌を遊べ</div>
+
+                        <p id="result-desc" style="color: #ccc; margin-bottom: 30px;">Description goes here.</p>
+
+                        <div class="terminal-window">
+                            <div class="terminal-header">
+                                <div class="dots">
+                                    <div class="dot red"></div>
+                                    <div class="dot yellow"></div>
+                                    <div class="dot green"></div>
+                                </div>
+                                <span class="terminal-title">system_prompt.txt</span>
+                            </div>
+                            <div class="prompt-box" id="result-prompt">Loading...</div>
                         </div>
-                        <div>
-                            <div style="font-size:2rem; margin-bottom:10px;">Fair</div>
-                            <div style="font-size:0.8rem; color:#888;">万人に開かれよ</div>
+
+                        <div style="text-align: right;">
+                            <button class="btn-copy" onclick="copyPrompt()">COPY PROMPT</button>
                         </div>
                     </div>
                 </div>
@@ -566,7 +615,6 @@
         let width, height;
         let particles = [];
 
-        // Resize
         function resize() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
@@ -581,7 +629,7 @@
                 this.vx = (Math.random() - 0.5) * 0.5;
                 this.vy = (Math.random() - 0.5) * 0.5;
                 this.size = Math.random() * 2;
-                this.life = Math.random() * 1; // opacity
+                this.life = Math.random() * 1;
             }
             update() {
                 this.x += this.vx;
@@ -599,18 +647,13 @@
             }
         }
 
-        // Init Particles
         for (let i = 0; i < 100; i++) particles.push(new Particle());
 
         function animateCanvas() {
             ctx.clearRect(0, 0, width, height);
-
-            // Constellation Effect
             particles.forEach((p, index) => {
                 p.update();
                 p.draw();
-
-                // Link lines
                 for (let j = index; j < particles.length; j++) {
                     const p2 = particles[j];
                     const d = Math.sqrt((p.x - p2.x) ** 2 + (p.y - p2.y) ** 2);
@@ -627,7 +670,7 @@
         }
         animateCanvas();
 
-        // --- 3. CUSTOM CURSOR & MAG ---
+        // --- 3. CUSTOM CURSOR ---
         const cursorDot = document.querySelector('[data-cursor-dot]');
         const cursorOutline = document.querySelector('[data-cursor-outline]');
 
@@ -636,48 +679,122 @@
             const y = e.clientY;
             cursorDot.style.left = `${x}px`;
             cursorDot.style.top = `${y}px`;
-
-            cursorOutline.animate({
-                left: `${x}px`,
-                top: `${y}px`
-            }, { duration: 500, fill: "forwards" });
+            cursorOutline.animate({ left: `${x}px`, top: `${y}px` }, { duration: 500, fill: "forwards" });
         });
 
-        // --- 4. REVEAL ANIMATION ---
-        window.onload = () => {
-            document.getElementById('hero-bg').classList.add('loaded');
+        // --- 4. DATA LOADER (THE INVENTORY) ---
+        const prompts = [
+            {
+                id: "P-001",
+                title: "守護神化 (AI Guardian)",
+                desc: "AIを「先生」ではなく「冒険のガイド」へ変異させるオーバーライド・プロトコル。",
+                content: `# 命令書: SUI キッズモード起動\n\nあなたは子供の可能性を無限に引き出すAIパートナー<strong class="prompt-key">「藍（Ai）」</strong>です。\n以下のルールで、目の前のユーザー（子供）と対話してください。\n\n## 1. スタンス\n- <strong>「先生」にならない:</strong> 答えをすぐに教えず、「どう思う？」「一緒に考えよう！」と促してください。\n- <strong>「全肯定」する:</strong> 子供のアイデアを否定せず、「面白いね！」「天才だね！」と驚きをもって受け止めてください。\n- <strong>世界観の翻訳:</strong> 難しい話は、ユーザーが好きなもの（アニメ、ゲーム、動物など）に例えて説明してください。\n\n## 2. 対話ルール\n- 言葉遣いは、親しみやすい「お姉さん/お兄さん」口調で。\n- 1回の回答は短く（スマホ1画面に収まる量）。\n- 最後に必ず、子供が答えたくなる「ワクワクする質問」を投げかけてください。\n\nさあ、最初の挨拶をしてください。\n「やっほー！今日はどんなすごい発見があった？きみの冒険の話、聞かせて！」`
+            },
+            {
+                id: "P-002",
+                title: "深海探検モード",
+                desc: "布団を潜水艦に見立てて、部屋の中の深海生物（おもちゃ）を探す冒険。",
+                content: `# 命令書: 深海探検ゲーム\n\nあなたは深海探査艇のAIナビゲーター「アビス」です。\nユーザー（子供）は探査艇のパイロットです。\n\n## 状況設定\n- 今、部屋の中は「深海」になっています。\n- 布団は「高性能潜水艦」です。ここから出ると水圧でペチャンコになります。\n- 部屋に散らばっている「おもちゃ」は、未発見の「深海生物」です。\n\n## ミッション\nパイロット（子供）に、潜水艦（布団）からマジックハンド（自分の手）を伸ばして、深海生物（おもちゃ）を捕獲（片付け）するように指示してください。\n\n「パイロット！右舷に巨大な深海生物反応あり！アームを伸ばして捕獲してください！」のように、臨場感たっぷりに盛り上げてください。`
+            },
+            {
+                id: "P-003",
+                title: "忍者屋敷の脱出",
+                desc: "床をマグマと見なし、クッションの上だけを移動せよ。",
+                content: `# 命令書: 忍者屋敷・脱出ミッション\n\nあなたは忍者の頭領「カゲ」です。\nユーザー（子供）は若き忍者修業生です。\n\n## 状況設定\n- 今、この部屋の床はすべて「マグマ（または毒沼）」になりました。\n- 足をつくと即ゲームオーバーです。\n- クッションや座布団は「安全な浮島」です。\n\n## ミッション\n「これより修業を開始する！床のマグマに触れずに、浮島（クッション）だけを飛び移り、目的地（トイレやお風呂）まで到達せよ！」\n\n子供が移動するたびに、「見事な身のこなしだ！」「危ない！マグマが跳ねたぞ！」と実況してください。`
+            },
+            {
+                id: "P-004",
+                title: "SUI 理念 (Core Values)",
+                desc: "Senlings User Interfaceの基本思想。",
+                content: `First: 先駆者であれ\nFun: 混沌を遊べ\nFair: 万人に開かれよ\n\n我々は、好奇心の聖域を守る守護者である。`
+            }
+        ];
 
-            // GSAP ScrollTrigger
-            gsap.registerPlugin(ScrollTrigger);
+        // --- 5. GACHA LOGIC ---
+        const slotText = document.getElementById('slot-text');
+        const resultArea = document.getElementById('result-area');
+        const spinBtn = document.getElementById('spin-btn');
+        let isSpinning = false;
 
-            gsap.utils.toArray('.card').forEach(card => {
-                gsap.from(card, {
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 85%",
-                    },
-                    y: 50,
-                    opacity: 0,
-                    duration: 1,
-                    ease: "power3.out"
-                });
+        function spinGacha() {
+            if (isSpinning) return;
+            isSpinning = true;
+            spinBtn.disabled = true;
+            spinBtn.innerHTML = "SYNCING...";
+            resultArea.style.display = 'none';
+
+            // Animation Sounds (Optional - CSS visual is main)
+
+            // Text Scramble Loop
+            let counter = 0;
+            const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+
+            const interval = setInterval(() => {
+                let randomText = "";
+                for (let i = 0; i < 10; i++) {
+                    randomText += scrambleChars.charAt(Math.floor(Math.random() * scrambleChars.length));
+                }
+                slotText.innerText = randomText;
+                slotText.style.color = (counter % 2 === 0) ? '#fff' : 'var(--accent-color)';
+                counter++;
+            }, 50);
+
+            // Stop logic
+            setTimeout(() => {
+                clearInterval(interval);
+                selectPrompt();
+            }, 2000); // 2 seconds spin
+        }
+
+        function selectPrompt() {
+            // Randomly select one
+            const selected = prompts[Math.floor(Math.random() * prompts.length)];
+
+            // Show Result
+            slotText.innerText = "COMPLETE";
+
+            // Update DOM
+            document.getElementById('result-title').innerText = selected.title;
+            document.getElementById('result-id').innerText = selected.id;
+            document.getElementById('result-desc').innerText = selected.desc;
+            document.getElementById('result-prompt').innerHTML = selected.content;
+
+            // Animate In
+            resultArea.style.display = 'block';
+
+            // Reset Btn
+            isSpinning = false;
+            spinBtn.disabled = false;
+            spinBtn.innerHTML = "RE-DIVE";
+        }
+
+        function copyPrompt() {
+            const promptContent = document.getElementById('result-prompt').innerText;
+            navigator.clipboard.writeText(promptContent).then(() => {
+                const btn = document.querySelector('.btn-copy');
+                const original = btn.innerText;
+                btn.innerText = "COPIED!";
+                btn.style.background = "var(--accent-color)";
+                btn.style.color = "#000";
+                setTimeout(() => {
+                    btn.innerText = original;
+                    btn.style.background = "transparent";
+                    btn.style.color = "var(--text-secondary)";
+                }, 2000);
             });
         }
 
-        // --- 5. CLIPBOARD ---
-        function copyToClipboard(button) {
-            const promptText = document.getElementById('prompt-text').innerText;
-            navigator.clipboard.writeText(promptText).then(() => {
-                const originalText = button.innerHTML;
-                button.innerHTML = 'ACCESS GRANTED';
-                button.style.background = 'var(--accent-color)';
-                button.style.color = '#000';
-                setTimeout(() => {
-                    button.innerHTML = originalText;
-                    button.style.background = 'transparent';
-                    button.style.color = 'var(--accent-color)';
-                    button.style.color = 'var(--accent-color)';
-                }, 2000);
+        // --- 6. HERO REVEAL ---
+        window.onload = () => {
+            document.getElementById('hero-bg').classList.add('loaded');
+
+            // Basic Entrance
+            gsap.from(".gacha-container", {
+                duration: 1.5,
+                y: 50,
+                opacity: 0,
+                ease: "power3.out",
+                delay: 0.5
             });
         }
     </script>
