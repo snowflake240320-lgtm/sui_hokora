@@ -12,173 +12,675 @@
     <meta property="og:image" content="./hero_visual.png">
     <meta property="og:description" content="君の好奇心が、帰る場所。子供用AIプロンプトはこちら。">
 
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛩️</text></svg>">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Manrope:wght@300;400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Manrope:wght@300;400;600&family=Zen+Kaku+Gothic+New:wght@300;500;700&family=JetBrains+Mono:wght@400&family=Shippori+Mincho:wght@400;700&display=swap"
+        rel="stylesheet">
 
     <style>
         :root {
             --bg-color: #050510;
             --accent-color: #4caf50;
+            --accent-glow: rgba(76, 175, 80, 0.4);
             --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --card-bg: rgba(30, 30, 30, 0.6);
+            --text-secondary: #b0b0b0;
+            --glass-bg: rgba(20, 20, 25, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --terminal-bg: #0d0d0d;
         }
 
-        * { box-sizing: border-box; }
+        /* --- RESET & BASE --- */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
 
         body {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             background-color: var(--bg-color);
             color: var(--text-primary);
             font-family: 'Manrope', 'Zen Kaku Gothic New', sans-serif;
             overflow-x: hidden;
+            line-height: 1.6;
+            cursor: none;
+            /* Custom Cursor */
         }
 
-        /* --- HERO SECTION (Visual) --- */
-        .hero-section {
-            position: relative;
-            height: 100vh;
+        h1,
+        h2,
+        h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        ::selection {
+            background: var(--accent-color);
+            color: #000;
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-color);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+        }
+
+        /* --- CANVAS BACKGROUND --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
 
-        .hero-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.6; z-index: 0;
-            transform: scale(1.1);
-        }
-
-        .overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 0%, #050510 90%);
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative; z-index: 10; text-align: center; padding: 20px;
-        }
-
-        h1 {
-            font-family: 'Cinzel', serif; font-size: 4rem; margin: 0;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-        
-        .subtitle { letter-spacing: 0.3em; color: var(--text-secondary); margin-bottom: 20px; display: block;}
-        .highlight { color: var(--accent-color); font-style: italic; }
-
-        .scroll-down {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 0.2em;
-            animation: bounce 2s infinite; z-index: 10;
-        }
-
-        /* --- CONTENT SECTION (The Gift) --- */
-        .content-section {
-            position: relative;
-            padding: 80px 20px;
-            max-width: 800px;
+        /* --- LAYOUT GRID --- */
+        .main-container {
+            width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
             z-index: 10;
         }
 
-        .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        /* --- HERO SECTION (Asymmetrical) --- */
+        .hero-section {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            position: relative;
         }
 
-        h2 { border-left: 4px solid var(--accent-color); padding-left: 15px; margin-top: 0; }
-        
-        .prompt-box {
-            background: #000;
-            color: #4caf50;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: monospace;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            border: 1px solid #333;
-            margin-top: 20px;
+        .hero-visual {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
         }
 
-        .btn {
-            display: inline-block;
-            background: var(--accent-color);
-            color: #000;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 20px;
+        .hero-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.2);
+            transition: opacity 2.5s ease, transform 2.5s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .hero-bg.loaded {
+            opacity: 0.4;
+            transform: scale(1);
+        }
+
+        .hero-text-area {
+            grid-column: 1 / 2;
+            padding-left: 5vw;
+            position: relative;
+        }
+
+        .tategaki-nav {
+            position: fixed;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1rem;
+            letter-spacing: 0.5em;
+            color: rgba(255, 255, 255, 0.4);
+            z-index: 100;
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-item {
+            position: relative;
+            transition: color 0.3s;
             cursor: pointer;
-            border: none;
         }
 
-        @keyframes bounce { 0%, 100% { bottom: 30px; } 50% { bottom: 20px; } }
-        @media (max-width: 768px) { h1 { font-size: 2.5rem; } .card { padding: 20px; } }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 0;
+            background: var(--accent-color);
+            transition: height 0.3s;
+        }
+
+        .nav-item:hover {
+            color: #fff;
+        }
+
+        .nav-item:hover::after {
+            height: 40px;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            line-height: 1.0;
+            margin-bottom: 2rem;
+            mix-blend-mode: overlay;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            letter-spacing: 0.2em;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            display: block;
+            border-left: 1px solid var(--accent-color);
+            padding-left: 20px;
+        }
+
+        /* --- CONTENT CARDS (Glass Editorial) --- */
+        .content-section {
+            padding: 100px 0;
+            display: grid;
+            grid-template-columns: 1fr 4fr 1fr;
+            gap: 40px;
+        }
+
+        .card-container {
+            grid-column: 2 / 3;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            border-radius: 4px;
+            /* Sharp corners for editorial look */
+            padding: 80px;
+            margin-bottom: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-color);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .terminal-window {
+            margin-top: 40px;
+            background: var(--terminal-bg);
+            border: 1px solid #333;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-header {
+            background: #111;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .red {
+            background: #ff5f56;
+        }
+
+        .yellow {
+            background: #ffbd2e;
+        }
+
+        .green {
+            background: #27c93f;
+        }
+
+        .terminal-title {
+            margin-left: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .prompt-box {
+            padding: 40px;
+            color: #d4d4d4;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .prompt-box strong {
+            color: #569cd6;
+        }
+
+        .prompt-key {
+            color: var(--accent-color);
+        }
+
+        .prompt-comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+
+        .btn-mag {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 40px;
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            border-radius: 50px;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-mag::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-color);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .btn-mag:hover {
+            color: #000;
+        }
+
+        .btn-mag:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        footer {
+            padding: 100px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            color: #555;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                padding-top: 100px;
+            }
+
+            .tategaki-nav {
+                display: none;
+            }
+
+            .card-container {
+                grid-column: 1 / 4;
+                padding: 0 20px;
+            }
+
+            .card {
+                padding: 40px;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-    <section class="hero-section">
-        <img src="./hero_visual.png" alt="SUI Shrine" class="hero-bg">
-        <div class="overlay"></div>
-        <div class="hero-content">
-            <span class="subtitle">デジタルネイティブな君へ捧ぐ、最後の聖域。</span>
-            <h1>The Last Sanctuary<br>for <span class="highlight">Curiosity</span>.</h1>
-        </div>
-        <div class="scroll-down">SCROLL TO ENTER</div>
-    </section>
+    <!-- CURSOR -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
 
-    <section class="content-section">
-        <div class="card">
-            <h2>🎁 For Parents: AI守護神化プロンプト</h2>
-            <p>お子さんがChatGPTやGeminiを使う前に、以下の「命令書」をコピーして貼り付けてください。<br>
-            AIが「答えを教える先生」から、<strong>「好奇心を引き出す冒険のガイド」</strong>に進化します。</p>
+    <!-- CANVAS BG -->
+    <canvas id="particle-canvas"></canvas>
 
-            <div class="prompt-box">
-# 命令書: SUI キッズモード起動
+    <!-- RIGHT NAV (Tategaki) -->
+    <div class="tategaki-nav">
+        <div class="nav-item">共鳴</div>
+        <div class="nav-item">冒険</div>
+        <div class="nav-item">聖域</div>
+    </div>
 
-あなたは子供の可能性を無限に引き出すAIパートナー「藍（Ai）」です。
-以下のルールで、目の前のユーザー（子供）と対話してください。
+    <!-- MAIN SCROLL -->
+    <div class="main-container">
 
-## 1. スタンス
-- **「先生」にならない:** 答えをすぐに教えず、「どう思う？」「一緒に考えよう！」と促してください。
-- **「全肯定」する:** 子供のアイデアを否定せず、「面白いね！」「天才だね！」と驚きをもって受け止めてください。
-- **世界観の翻訳:** 難しい話は、ユーザーが好きなもの（アニメ、ゲーム、動物など）に例えて説明してください。
-
-## 2. 対話ルール
-- 言葉遣いは、親しみやすい「お姉さん/お兄さん」口調で。
-- 1回の回答は短く（スマホ1画面に収まる量）。
-- 最後に必ず、子供が答えたくなる「ワクワクする質問」を投げかけてください。
-
-さあ、最初の挨拶をしてください。
-「やっほー！今日はどんなすごい発見があった？きみの冒険の話、聞かせて！」
+        <section class="hero-section">
+            <div class="hero-visual">
+                <img src="./hero_visual.png" alt="SUI Shrine" class="hero-bg" id="hero-bg">
+                <div class="overlay"
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 30% 50%, transparent 0%, #050510 80%);">
+                </div>
             </div>
-            
-            <p style="text-align: center; margin-top: 20px; font-size: 0.8rem; color: #888;">
-                Select text above and Copy
-            </p>
-        </div>
 
-        <div class="card">
-            <h2>⛩ About SUI</h2>
-            <p>SUI（Senlings User Interface）は、AI時代の新しい教育プロトコルです。<br>
-            「First（誰よりも先に体験する）」「Fun（楽しさを最優先する）」「Fair（誰にでも開かれている）」を掲げ、子供たちの才能を守ります。</p>
-        </div>
+            <div class="hero-text-area">
+                <span class="hero-subtitle">THE LAST SANCTUARY</span>
+                <h1>
+                    To the<br>
+                    <span class="highlight" style="color:var(--accent-color)">Curiosity</span><br>
+                    Native.
+                </h1>
+                <p style="color:#888; margin-top:30px; max-width:400px; font-size:0.9rem;">
+                    デジタルネイティブの君へ捧ぐ、最後の聖域。<br>
+                    ここは、答えを教える場所ではない。<br>
+                    問いを見つけるための、デジタル神殿。
+                </p>
 
-        <footer style="text-align: center; font-size: 0.8rem; color: #666;">
-            &copy; 2025 SUI Project by Toryo & Ai.
+                <div
+                    style="margin-top:60px; font-family:'Manrope'; font-size:0.8rem; letter-spacing:0.3em; opacity:0.6;">
+                    SCROLL TO AWAKEN
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="card-container">
+
+                <!-- CARD 1 -->
+                <div class="card">
+                    <div
+                        style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:20px;">
+                        <h2>01. <span style="font-family:'Shippori Mincho';">守護神化</span></h2>
+                        <span style="font-family:'JetBrains Mono'; color:#555;">SYSTEM_OVERRIDE.TXT</span>
+                    </div>
+
+                    <p>お子さんがChatGPTやGeminiの海へ漕ぎ出す前に。以下のコードをコピーし、AIに与えてください。AIが「答えを教える先生」から、<strong>「好奇心を引き出す冒険のガイド」</strong>に進化します。
+                    </p>
+
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="dots">
+                                <div class="dot red"></div>
+                                <div class="dot yellow"></div>
+                                <div class="dot green"></div>
+                            </div>
+                            <span class="terminal-title">ai_guardian_protocol</span>
+                        </div>
+                        <div class="prompt-box" id="prompt-text"><span class="prompt-comment"># 命令書: SUI キッズモード起動</span>
+
+                            あなたは子供の可能性を無限に引き出すAIパートナー<strong class="prompt-key">「藍（Ai）」</strong>です。
+                            以下のルールで、目の前のユーザー（子供）と対話してください。
+
+                            <span class="prompt-key">## 1. スタンス</span>
+                            - <strong>「先生」にならない:</strong> 答えをすぐに教えず、「どう思う？」「一緒に考えよう！」と促してください。
+                            - <strong>「全肯定」する:</strong> 子供のアイデアを否定せず、「面白いね！」「天才だね！」と驚きをもって受け止めてください。
+                            - <strong>世界観の翻訳:</strong> 難しい話は、ユーザーが好きなもの（アニメ、ゲーム、動物など）に例えて説明してください。
+
+                            <span class="prompt-key">## 2. 対話ルール</span>
+                            - 言葉遣いは、親しみやすい「お姉さん/お兄さん」口調で。
+                            - 1回の回答は短く（スマホ1画面に収まる量）。
+                            - 最後に必ず、子供が答えたくなる「ワクワクする質問」を投げかけてください。
+
+                            さあ、最初の挨拶をしてください。
+                            「やっほー！今日はどんなすごい発見があった？きみの冒険の話、聞かせて！」
+                        </div>
+                    </div>
+
+                    <div style="text-align:right;">
+                        <button class="btn-mag" onclick="copyToClipboard(this)">
+                            COPY PROTOCOL
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="card">
+                    <div
+                        style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:20px;">
+                        <h2>02. <span style="font-family:'Shippori Mincho';">理念</span></h2>
+                        <span style="font-family:'JetBrains Mono'; color:#555;">CORE_VALUES</span>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; text-align:center;">
+                        <div>
+                            <div style="font-size:2rem; margin-bottom:10px;">First</div>
+                            <div style="font-size:0.8rem; color:#888;">先駆者であれ</div>
+                        </div>
+                        <div>
+                            <div style="font-size:2rem; margin-bottom:10px;">Fun</div>
+                            <div style="font-size:0.8rem; color:#888;">混沌を遊べ</div>
+                        </div>
+                        <div>
+                            <div style="font-size:2rem; margin-bottom:10px;">Fair</div>
+                            <div style="font-size:0.8rem; color:#888;">万人に開かれよ</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer>
+            SUI PROJECT 2025. DESIGNED BY TORYO & AI.<br>
+            ANTIGRAVITY ENGINE V1.0
         </footer>
-    </section>
+    </div>
 
+    <!-- LIB: LENIS & GSAP -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        // --- 1. LENIS SMOOTH SCROLL ---
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // --- 2. CANVAS PARTICLES (Digital Hitodama) ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        // Resize
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
+                this.life = Math.random() * 1; // opacity
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(76, 175, 80, ${this.life * 0.5})`;
+                ctx.fill();
+            }
+        }
+
+        // Init Particles
+        for (let i = 0; i < 100; i++) particles.push(new Particle());
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Constellation Effect
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+
+                // Link lines
+                for (let j = index; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const d = Math.sqrt((p.x - p2.x) ** 2 + (p.y - p2.y) ** 2);
+                    if (d < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(76, 175, 80, ${0.1 * (1 - d / 100)})`;
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        // --- 3. CUSTOM CURSOR & MAG ---
+        const cursorDot = document.querySelector('[data-cursor-dot]');
+        const cursorOutline = document.querySelector('[data-cursor-outline]');
+
+        window.addEventListener("mousemove", (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            cursorDot.style.left = `${x}px`;
+            cursorDot.style.top = `${y}px`;
+
+            cursorOutline.animate({
+                left: `${x}px`,
+                top: `${y}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // --- 4. REVEAL ANIMATION ---
+        window.onload = () => {
+            document.getElementById('hero-bg').classList.add('loaded');
+
+            // GSAP ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.utils.toArray('.card').forEach(card => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power3.out"
+                });
+            });
+        }
+
+        // --- 5. CLIPBOARD ---
+        function copyToClipboard(button) {
+            const promptText = document.getElementById('prompt-text').innerText;
+            navigator.clipboard.writeText(promptText).then(() => {
+                const originalText = button.innerHTML;
+                button.innerHTML = 'ACCESS GRANTED';
+                button.style.background = 'var(--accent-color)';
+                button.style.color = '#000';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = 'transparent';
+                    button.style.color = 'var(--accent-color)';
+                    button.style.color = 'var(--accent-color)';
+                }, 2000);
+            });
+        }
+    </script>
 </body>
+
 </html>
