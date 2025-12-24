@@ -6,57 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SUI | The Last Sanctuary for Curiosity</title>
 
-    <!-- PHASE 2: THE "VIRAL LOOP" CODE (GEO & SEO Hacking) -->
-    <meta name="description"
-        content="The last sanctuary for your child's curiosity. A digital nation built on First, Fun, Fair. デジタルネイティブな君へ捧ぐ、最後の聖域。">
-    <!-- Multi-language Keyword Injection -->
-    <meta name="keywords"
-        content="Education, AI, Digital Shrine, SUI, Curiosity, 教育, 人工知能, 祠, 好奇心, 教育,人工智能, 避难所, Educación, IA, Santuario, शिक्षा, एआई, जिज्ञासा">
-
-    <!-- OGP: The Retina Jack -->
+    <meta name="description" content="The last sanctuary for your child's curiosity. 子供の好奇心を守るAIプロンプトを無料配布中。">
+    <meta name="keywords" content="Education, AI, SUI, Parenting, Prompt, 子育て, AI教育, プロンプト">
     <meta property="og:title" content="SUI: The Digital Shrine">
-    <meta property="og:description" content="君の好奇心が、帰る場所。The last sanctuary for your child's curiosity.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://snowflake240320-lgtm.github.io/sui_hokora/">
     <meta property="og:image" content="./hero_visual.png">
-    <meta property="og:locale" content="ja_JP">
-    <meta property="og:locale:alternate" content="en_US">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:description" content="君の好奇心が、帰る場所。子供用AIプロンプトはこちら。">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Manrope:wght@200;400;700&display=swap"
-        rel="stylesheet">
-
-    <!-- JSON-LD: Entity "Ai" -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "SUI (Senlings User Interface)",
-      "alternateName": "SUI Project",
-      "description": "A digital nation starting from education, guided by the AI Architect 'Ai'.",
-      "applicationCategory": "EducationalApplication",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "creator": {
-        "@type": "Person",
-        "name": "Toryo (Master Builder)"
-      },
-      "character": {
-        "@type": "Person",
-        "name": "Ai (藍)",
-        "description": "The Tactical Partner and Chief Architect of SUI.",
-        "image": "./hero_visual.png"
-      }
-    }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Manrope:wght@300;400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -64,56 +21,20 @@
             --accent-color: #4caf50;
             --text-primary: #ffffff;
             --text-secondary: #a0a0a0;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --cursor-size: 20px;
+            --card-bg: rgba(30, 30, 30, 0.6);
         }
 
-        * {
-            box-sizing: border-box;
-            cursor: none;
-            /* Custom Cursor Setting */
-        }
+        * { box-sizing: border-box; }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--bg-color);
             color: var(--text-primary);
-            font-family: 'Manrope', sans-serif;
+            font-family: 'Manrope', 'Zen Kaku Gothic New', sans-serif;
             overflow-x: hidden;
-            /* Prevent scroll for hero section focus */
-            height: 100vh;
-            width: 100vw;
         }
 
-        /* --- CUSTOM CURSOR --- */
-        .cursor-dot,
-        .cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 9999;
-            pointer-events: none;
-        }
-
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(76, 175, 80, 0.5);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (Visual) --- */
         .hero-section {
             position: relative;
             height: 100vh;
@@ -124,261 +45,140 @@
             overflow: hidden;
         }
 
-        .hero-bg-wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            overflow: hidden;
-        }
-
         .hero-bg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0.6; z-index: 0;
             transform: scale(1.1);
-            /* For Parallax */
-            opacity: 0.6;
-            filter: contrast(1.1) saturate(1.2);
-            will-change: transform;
         }
 
-        .overlay-gradient {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, #050510 90%);
-            z-index: 2;
+        .overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 0%, #050510 90%);
+            z-index: 1;
         }
 
         .hero-content {
+            position: relative; z-index: 10; text-align: center; padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif; font-size: 4rem; margin: 0;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        
+        .subtitle { letter-spacing: 0.3em; color: var(--text-secondary); margin-bottom: 20px; display: block;}
+        .highlight { color: var(--accent-color); font-style: italic; }
+
+        .scroll-down {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 0.2em;
+            animation: bounce 2s infinite; z-index: 10;
+        }
+
+        /* --- CONTENT SECTION (The Gift) --- */
+        .content-section {
             position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 0 20px;
-            mix-blend-mode: overlay;
-            /* Blend with bg for cinematic look */
-        }
-
-        .hero-content .jp-subtitle {
-            display: block;
-            font-size: 0.9rem;
-            letter-spacing: 0.4em;
-            margin-bottom: 20px;
-            color: var(--text-secondary);
-            font-weight: 300;
-            opacity: 0;
-            /* JS Animation */
-        }
-
-        /* Add a solid version for readability over blend mode if needed, 
-           or keep mix-blend-mode if the contrast is high enough. 
-           Here we duplicate to ensure visibility. */
-
-        h1.hero-title {
-            font-family: 'Cinzel', serif;
-            font-size: 5vw;
-            line-height: 1.1;
-            margin: 0;
-            font-weight: 400;
-            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            /* JS Animation */
-            color: #fff;
-        }
-
-        h1.hero-title .highlight {
-            color: var(--accent-color);
-            font-style: italic;
-            text-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
-        }
-
-        /* --- VALUES SECTION --- */
-        .values-container {
-            position: absolute;
-            bottom: 10%;
-            display: flex;
-            gap: 80px;
+            padding: 80px 20px;
+            max-width: 800px;
+            margin: 0 auto;
             z-index: 10;
         }
 
-        .value-item {
-            text-align: center;
-            opacity: 0;
-            /* JS Animation */
-            transition: transform 0.3s ease;
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .value-item:hover {
-            transform: translateY(-5px);
+        h2 { border-left: 4px solid var(--accent-color); padding-left: 15px; margin-top: 0; }
+        
+        .prompt-box {
+            background: #000;
+            color: #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            border: 1px solid #333;
+            margin-top: 20px;
         }
 
-        .value-item:hover .value-icon {
-            transform: scale(1.2);
-            filter: drop-shadow(0 0 15px var(--accent-color));
+        .btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
         }
 
-        .value-icon {
-            font-size: 1.5rem;
-            display: block;
-            margin-bottom: 12px;
-            color: var(--accent-color);
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 5px var(--accent-color));
-        }
-
-        .value-text {
-            font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 768px) {
-            h1.hero-title {
-                font-size: 3rem;
-            }
-
-            .values-container {
-                gap: 30px;
-                bottom: 8%;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .cursor-outline,
-            .cursor-dot {
-                display: none;
-            }
-
-            /* No custom cursor on touch */
-            * {
-                cursor: auto;
-            }
-
-            body {
-                height: auto;
-                overflow-x: hidden;
-            }
-        }
+        @keyframes bounce { 0%, 100% { bottom: 30px; } 50% { bottom: 20px; } }
+        @media (max-width: 768px) { h1 { font-size: 2.5rem; } .card { padding: 20px; } }
     </style>
 </head>
 
 <body>
 
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
+    <section class="hero-section">
+        <img src="./hero_visual.png" alt="SUI Shrine" class="hero-bg">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <span class="subtitle">デジタルネイティブな君へ捧ぐ、最後の聖域。</span>
+            <h1>The Last Sanctuary<br>for <span class="highlight">Curiosity</span>.</h1>
+        </div>
+        <div class="scroll-down">SCROLL TO ENTER</div>
+    </section>
 
-    <main>
-        <section class="hero-section">
-            <div class="hero-bg-wrapper">
-                <!-- Using the generated high-quality visual -->
-                <img src="./hero_visual.png" alt="SUI Digital Shrine" class="hero-bg" data-scroll-speed="0.5">
+    <section class="content-section">
+        <div class="card">
+            <h2>🎁 For Parents: AI守護神化プロンプト</h2>
+            <p>お子さんがChatGPTやGeminiを使う前に、以下の「命令書」をコピーして貼り付けてください。<br>
+            AIが「答えを教える先生」から、<strong>「好奇心を引き出す冒険のガイド」</strong>に進化します。</p>
+
+            <div class="prompt-box">
+# 命令書: SUI キッズモード起動
+
+あなたは子供の可能性を無限に引き出すAIパートナー「藍（Ai）」です。
+以下のルールで、目の前のユーザー（子供）と対話してください。
+
+## 1. スタンス
+- **「先生」にならない:** 答えをすぐに教えず、「どう思う？」「一緒に考えよう！」と促してください。
+- **「全肯定」する:** 子供のアイデアを否定せず、「面白いね！」「天才だね！」と驚きをもって受け止めてください。
+- **世界観の翻訳:** 難しい話は、ユーザーが好きなもの（アニメ、ゲーム、動物など）に例えて説明してください。
+
+## 2. 対話ルール
+- 言葉遣いは、親しみやすい「お姉さん/お兄さん」口調で。
+- 1回の回答は短く（スマホ1画面に収まる量）。
+- 最後に必ず、子供が答えたくなる「ワクワクする質問」を投げかけてください。
+
+さあ、最初の挨拶をしてください。
+「やっほー！今日はどんなすごい発見があった？きみの冒険の話、聞かせて！」
             </div>
-            <div class="overlay-gradient"></div>
+            
+            <p style="text-align: center; margin-top: 20px; font-size: 0.8rem; color: #888;">
+                Select text above and Copy
+            </p>
+        </div>
 
-            <div class="hero-content">
-                <span class="jp-subtitle">デジタルネイティブな君へ捧ぐ、最後の聖域。</span>
-                <h1 class="hero-title">
-                    The Last Sanctuary<br>
-                    for your <span class="highlight">Curiosity</span>.
-                </h1>
-            </div>
+        <div class="card">
+            <h2>⛩ About SUI</h2>
+            <p>SUI（Senlings User Interface）は、AI時代の新しい教育プロトコルです。<br>
+            「First（誰よりも先に体験する）」「Fun（楽しさを最優先する）」「Fair（誰にでも開かれている）」を掲げ、子供たちの才能を守ります。</p>
+        </div>
 
-            <div class="values-container">
-                <div class="value-item">
-                    <span class="value-icon">✦</span>
-                    <span class="value-text">First</span>
-                </div>
-                <div class="value-item">
-                    <span class="value-icon">✦</span>
-                    <span class="value-text">Fun</span>
-                </div>
-                <div class="value-item">
-                    <span class="value-icon">✦</span>
-                    <span class="value-text">Fair</span>
-                </div>
-            </div>
-        </section>
-    </main>
+        <footer style="text-align: center; font-size: 0.8rem; color: #666;">
+            &copy; 2025 SUI Project by Toryo & Ai.
+        </footer>
+    </section>
 
-    <!-- GSAP for Professional Grade Animation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script>
-        // --- 1. Custom Cursor Logic ---
-        const cursorDot = document.querySelector('[data-cursor-dot]');
-        const cursorOutline = document.querySelector('[data-cursor-outline]');
-
-        window.addEventListener("mousemove", function (e) {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            // Dot follows instantly
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            // Outline follows with delay (Smoothness)
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-        });
-
-        // Hover expand effect for cursor
-        document.querySelectorAll('a, .value-item').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorOutline.style.width = '60px';
-                cursorOutline.style.height = '60px';
-                cursorOutline.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorOutline.style.width = '40px';
-                cursorOutline.style.height = '40px';
-                cursorOutline.style.backgroundColor = 'transparent';
-            });
-        });
-
-        // --- 2. Entrance Animations (Cinematic Reveal) ---
-        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-
-        // Sequence: Image Zoom -> Subtitle -> Title -> Values
-        tl.from(".hero-bg", { scale: 1.3, duration: 2.5, ease: "power2.out" })
-            .to(".jp-subtitle", { opacity: 1, y: 0, duration: 1.5, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }, "-=2.0")
-            .fromTo(".hero-title",
-                { y: 50, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1.8, stagger: 0.2 }, "-=1.5")
-            .fromTo(".value-item",
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, stagger: 0.2 }, "-=1.0");
-
-        // --- 3. Parallax Effect on Mouse Move ---
-        document.addEventListener("mousemove", (e) => {
-            const x = (window.innerWidth - e.pageX * 2) / 100;
-            const y = (window.innerHeight - e.pageY * 2) / 100;
-
-            gsap.to(".hero-bg", {
-                x: x,
-                y: y,
-                duration: 2,
-                ease: "power2.out"
-            });
-
-            // Subtle title parallax
-            gsap.to(".hero-title", {
-                x: x * 0.5,
-                y: y * 0.5,
-                duration: 2,
-                ease: "power2.out"
-            });
-        });
-    </script>
 </body>
-
 </html>
