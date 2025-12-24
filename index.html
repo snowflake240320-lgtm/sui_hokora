@@ -458,6 +458,32 @@
             color: var(--accent-color);
         }
 
+        .btn-share-x {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            margin-left: 15px;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-family: 'Manrope';
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-share-x:hover {
+            background: #111;
+            border-color: #fff;
+            transform: translateY(-2px);
+        }
+
         footer {
             padding: 50px 0;
             text-align: center;
@@ -570,8 +596,19 @@
                             <div class="prompt-box" id="result-prompt">Loading...</div>
                         </div>
 
-                        <div style="text-align: right;">
+                        <div
+                            style="text-align: right; display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap;">
                             <button class="btn-copy" onclick="copyPrompt()">COPY PROMPT</button>
+                            <button class="btn-share-x" onclick="shareOnX()" id="share-btn">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="currentColor">
+                                    <g>
+                                        <path
+                                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                                        </path>
+                                    </g>
+                                </svg>
+                                Xでシェア
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -782,6 +819,20 @@
                     btn.style.color = "var(--text-secondary)";
                 }, 2000);
             });
+        }
+
+        function shareOnX() {
+            const title = document.getElementById('result-title').innerText;
+            const desc = document.getElementById('result-desc').innerText;
+            // Assuming the URL is the current GitHub Pages or local
+            // User requested explicit format: https://[Your-GitHub-Pages-URL]
+            // We substitute a placeholder if not on a known domain, or use window.location.href
+            const shareUrl = "https://snowflake240320-lgtm.github.io/sui_hokora/";
+
+            const text = `SUIが選んだ今日の冒険は『${title}』でした。${desc} #SUI #Senlings`;
+            const intentUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
+
+            window.open(intentUrl, '_blank');
         }
 
         // --- 6. HERO REVEAL ---
