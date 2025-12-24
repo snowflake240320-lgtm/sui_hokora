@@ -568,8 +568,8 @@
                     <div class="slot-text" id="slot-text">READY TO DIVE?</div>
                 </div>
 
-                <button class="btn-gacha" onclick="spinGacha()" id="spin-btn">
-                    DIVE (GACHA)
+                <button class="btn-gacha" onclick="spinGacha()" id="spin-btn" disabled>
+                    LOADING...
                 </button>
 
                 <!-- RESULT AREA -->
@@ -720,8 +720,9 @@
         });
 
         // --- 4. DATA LOADER (THE INVENTORY) ---
-        // Default / Fallback Data
-        let prompts = [
+        let prompts = [];
+
+        const FALLBACK_PROMPTS = [
             {
                 id: "P-001",
                 title: "守護神化 (AI Guardian)",
@@ -755,43 +756,30 @@
             const btn = document.getElementById('spin-btn');
             const slot = document.getElementById('slot-text');
 
-            // Set Loading Screen logic if needed, or just button state
-            btn.innerHTML = "SYNCING...";
-            btn.disabled = true;
-            slot.innerText = "ESTABLISHING LINK...";
-
             try {
                 const response = await fetch(API_URL);
                 if (!response.ok) throw new Error('Network response was not ok');
 
                 const data = await response.json();
 
-                // Assuming API returns array of prompt objects or { data: [...] }
-                // Adjust based on actual API response structure. 
-                // Since I can't verify the structure beforehand without curling, 
-                // I will assume it returns a generic array similar to local structure 
-                // OR adapt it. 
-                // Let's assume the API returns the exact JSON array format as requested in prompt.
-                // If the user made the API, it likely returns the array.
-
                 if (Array.isArray(data) && data.length > 0) {
                     prompts = data;
                     console.log("SUI: Database Updated via Neural Link");
                     slot.innerText = "LINK ESTABLISHED";
                 } else {
-                    console.warn("SUI: API returned empty/invalid data. Using local cache.");
-                    slot.innerText = "LOCAL MODE";
+                    throw new Error("Empty Data");
                 }
 
             } catch (error) {
-                console.error("SUI: Connection failed. Using local protocol.", error);
-                slot.innerText = "OFFLINE MODE";
+                console.warn("SUI: Connection failed or Empty. Using Fallback.", error);
+                prompts = FALLBACK_PROMPTS;
+                slot.innerText = "LOCAL MODE";
             } finally {
-                // Restore Button
+                // Unlock Button
                 btn.innerHTML = "DIVE (GACHA)";
                 btn.disabled = false;
 
-                // Change Slot text back to Ready after a moment
+                // Change Slot text back
                 setTimeout(() => {
                     slot.innerText = "READY TO DIVE?";
                 }, 1500);
